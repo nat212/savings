@@ -1,0 +1,15 @@
+<div class="content" fxLayout="column" fxLayoutAlign="center center">
+  <h2>Welcome!</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Select a currency</mat-label>
+    <input matInput type="text" [formControl]="currencyControl" [matAutocomplete]="autocomplete" />
+    <mat-autocomplete #autocomplete>
+      <mat-option *ngFor="let currency of currencies$ | async" [value]="currency">
+        {{ currency.display }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <button mat-raised-button color="primary">
+    Next
+  </button>
+</div>
