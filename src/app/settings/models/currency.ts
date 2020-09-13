@@ -11,4 +11,8 @@ export class Currency {
   get display(): string {
     return `${this.name} (${this.code})`;
   }
+
+  public toString(): string {
+    return this.display;
+  }
 }

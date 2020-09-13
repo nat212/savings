@@ -1,4 +1,6 @@
 .content {
-  height: 100vh;
-  width: 100vw;
+  background-color: var(--primary-color);
+  height: calc(100vh - 32px);
+  width: calc(100vw - 32px);
+  padding: 16px;
 }

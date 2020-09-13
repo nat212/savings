@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>
+  Currency
+</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Select a currency</mat-label>
+    <input matInput type="text" [formControl]="currencyForm" [matAutocomplete]="autocomplete" [placeholder]="data.currency.display" />
+    <mat-autocomplete #autocomplete [displayWith]="displayFn">
+      <mat-option *ngFor="let currency of filteredCurrencies$ | async" [value]="currency">
+        {{ currency.display }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-hint>Search for a currency and select from the dropdown</mat-hint>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>
+    Cancel
+  </button>
+  <button mat-button color="accent" [disabled]="currencyForm.invalid" [mat-dialog-close]="currencyForm.value">
+    Save
+  </button>
+</div>

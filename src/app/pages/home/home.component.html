@@ -1,1 +1,33 @@
-<p>home works!</p>
+<div class="content" fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-toolbar class="toolbar mat-elevation-z6" color="primary">
+    <mat-toolbar-row>
+      <span>Savings</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-tab-group
+    headerPosition="below"
+    class="tab-group"
+    fxFlex="1 1 auto"
+    mat-align-tabs="center"
+    class="fill-height"
+    (selectedIndexChange)="selectedIndexChange($event)"
+  >
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>home</mat-icon>
+        Home
+      </ng-template>
+      <router-outlet name="home"></router-outlet>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>settings</mat-icon>
+        Settings
+      </ng-template>
+      <router-outlet name="settings"></router-outlet>
+    </mat-tab>
+  </mat-tab-group>
+  <button mat-fab color="accent" class="add-button" *ngIf="showFAB$ | async" [@fabShowHide] matTooltip="Add Goal" (click)="addGoal()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

@@ -1,15 +1,25 @@
-<div class="content" fxLayout="column" fxLayoutAlign="center center">
-  <h2>Welcome!</h2>
-  <mat-form-field appearance="fill">
-    <mat-label>Select a currency</mat-label>
-    <input matInput type="text" [formControl]="currencyControl" [matAutocomplete]="autocomplete" />
-    <mat-autocomplete #autocomplete>
-      <mat-option *ngFor="let currency of currencies$ | async" [value]="currency">
-        {{ currency.display }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <button mat-raised-button color="primary">
-    Next
-  </button>
-</div>
+<form gdColumns="repeat(12, 1fr)" gdRows="auto min-content auto" class="content" [formGroup]="startupGroup" (submit)="submit()">
+  <mat-card gdColumn.xs="1 / span 12" gdRow="2" gdColumn.sm="2 / span 10" gdColumn.md="3 / span 8" gdColumn.gt-md="4 / span 6">
+    <mat-card-header>
+      <mat-card-title>Welcome!</mat-card-title>
+      <mat-card-subtitle>Since this is your first time, please fill in the following</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Select a currency</mat-label>
+        <input matInput type="text" formControlName="currency" [matAutocomplete]="autocomplete" />
+        <mat-autocomplete [displayWith]="displayFn" #autocomplete>
+          <mat-option *ngFor="let currency of filteredCurrencies$ | async" [value]="currency">
+            {{ currency.display }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-hint>Search for a currency and select from the dropdown</mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row">
+      <button mat-raised-button color="accent" fxFlex="1 1 auto" [disabled]="startupGroup.invalid" type="submit">
+        Next
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
