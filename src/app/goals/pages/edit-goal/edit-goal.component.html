@@ -1,11 +1,18 @@
-<mat-card>
-  <mat-card-title>
+<sv-breadcrumbs
+  class="accent"
+  [crumbs]="[{ label: 'Goals', path: ['..'] }, { label: (newGoal ? 'Add' : 'Edit') + ' Goal' }]"
+></sv-breadcrumbs>
+<mat-card [formGroup]="goalForm">
+  <mat-card-title style="text-align: center;">
     Add Goal
   </mat-card-title>
-  <mat-card-content>
+  <mat-card-content fxLayout="column" fxLayoutAlign="start stretch" style="margin-top: 16px;">
     <mat-form-field>
       <mat-label>Goal Name</mat-label>
-      <input matInput type="text" />
+      <input matInput type="text" formControlName="name" />
     </mat-form-field>
   </mat-card-content>
+  <button mat-fab color="primary" type="button" class="save-button" [@fabShowHide]>
+    <mat-icon>check</mat-icon>
+  </button>
 </mat-card>

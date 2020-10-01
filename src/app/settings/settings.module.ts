@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { SharedModule } from '../shared/shared.module';
 import { CurrencySelectComponent } from './dialogs/currency-select/currency-select.component';
 import { SettingsHomeComponent } from './pages/settings-home/settings-home.component';
 import { SettingsRoutingModule } from './settings-routing.module';
@@ -25,6 +26,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatButtonModule,
+    SharedModule,
   ],
 })
 export class SettingsModule {}

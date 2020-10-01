@@ -4,7 +4,8 @@
 }
 
 .toolbar {
-  z-index: 1;
+  z-index: 2;
+  position: relative;
 }
 
 .add-button {
@@ -12,4 +13,8 @@
   position: fixed;
   bottom: 64px;
   right: 16px;
+}
+
+.page-outlet {
+  overflow: auto;
 }

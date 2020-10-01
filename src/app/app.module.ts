@@ -20,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FirstStartupComponent } from './pages/first-startup/first-startup.component';
 import { HomeComponent } from './pages/home/home.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, FirstStartupComponent, HomeComponent],
@@ -34,13 +35,12 @@ import { HomeComponent } from './pages/home/home.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule,
     MatAutocompleteModule,
     MatCardModule,
-    GridModule,
     MatToolbarModule,
     MatIconModule,
     MatTooltipModule,
+    SharedModule,
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
   bootstrap: [AppComponent],

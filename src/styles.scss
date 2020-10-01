@@ -19,3 +19,22 @@ mat-tab-group.fill-height {
     flex: 1 1 auto;
   }
 }
+button.mat-icon-button,
+a.mat-icon-button {
+  &.fit-icon {
+    width: 24px;
+    height: 24px;
+    line-height: normal;
+    mat-icon {
+      margin-top: -1px;
+    }
+  }
+  &.small {
+    width: 32px;
+    height: 32px;
+    line-height: 30px;
+    mat-icon {
+      transform: scale(0.8);
+    }
+  }
+}

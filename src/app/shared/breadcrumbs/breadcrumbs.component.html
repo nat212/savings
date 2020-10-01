@@ -1,0 +1,9 @@
+<div class="crumbs" fxLayout="row" fxLayoutAlign="start center">
+  <button mat-icon-button [routerLink]="['..']" type="button" class="fit-icon">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <ng-container *ngFor="let crumb of crumbs; let last = last">
+    <span class="crumb" [routerLink]="crumb.path || []">{{ crumb.label }}</span>
+    <mat-icon *ngIf="!last">chevron_right</mat-icon>
+  </ng-container>
+</div>

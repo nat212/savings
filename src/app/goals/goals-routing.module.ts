@@ -13,7 +13,7 @@ const routes: Routes = [
     component: EditGoalComponent,
   },
   {
-    path: 'edit/:id',
+    path: 'edit/:goal_id',
     component: EditGoalComponent,
   },
 ];

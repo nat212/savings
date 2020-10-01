@@ -1,0 +1,46 @@
+@import '~@angular/material/theming';
+@import '~@angular/flex-layout/mq';
+
+:host {
+  display: block;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 16px;
+  border-radius: 0 0 16px 16px;
+  @include mat-elevation(3);
+
+  @include layout-bp(gt-sm) {
+    padding: 64px 16px 0;
+  }
+}
+
+:host-context(.primary) {
+  background-color: var(--primary-color);
+  color: var(--text-primary-color);
+}
+
+:host-context(.accent) {
+  background-color: var(--accent-color);
+  color: var(--text-accent-color);
+}
+
+.crumbs {
+  height: 56px;
+  @include layout-bp(gt-sm) {
+    height: 64px;
+  }
+  > button {
+    margin-right: 16px;
+  }
+  .crumb {
+    cursor: pointer;
+    user-select: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: Poppins;
+  }
+}
