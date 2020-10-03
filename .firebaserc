@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "draper-savings": {
+      "hosting": {
+        "savings": [
+          "draper-savings"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "draper-savings"
+  }
+}

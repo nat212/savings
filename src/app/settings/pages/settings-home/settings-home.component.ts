@@ -3,10 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CurrencySelectComponent } from '../../dialogs/currency-select/currency-select.component';
+import { Currency } from '../../entities/currency/currency.model';
 import { SettingsQuery } from '../../entities/settings/settings.query';
 import { SettingsService } from '../../entities/settings/settings.service';
 import { SettingsState } from '../../entities/settings/settings.store';
-import { Currency } from '../../models/currency';
 
 @Component({
   selector: 'sv-settings-home',

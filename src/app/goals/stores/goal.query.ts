@@ -12,7 +12,7 @@ export class GoalQuery extends QueryEntity<GoalState> {
     super(store);
   }
 
-  public getGoal(id: number): Observable<Goal> {
+  public getGoal(id: string): Observable<Goal> {
     return this.selectEntity(id);
   }
 }

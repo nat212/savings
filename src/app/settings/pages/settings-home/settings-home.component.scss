@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.contents {
+  overflow-y: auto;
+}

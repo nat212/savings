@@ -1,9 +1,26 @@
-<div class="content">
-  <h1>Goals</h1>
-  <div class="goals">
-    <div class="goal" *ngFor="let goal of goals$ | async">
-      <span>{{ goal.name }}</span>
-    </div>
+<sv-breadcrumbs class="accent" [crumbs]="[{ label: 'Goals' }]"></sv-breadcrumbs>
+<div class="contents">
+  <div class="goals" fxFlex="1 1 auto" gdRows="min-content!" gdColumns="auto" gdColumns.gt-sm="1fr 2fr 1fr">
+    <mat-list gdColumn.gt-sm="2">
+      <mat-list-item *ngFor="let goal of goals$ | async" class="goal">
+        <mat-icon matListIcon>flag</mat-icon>
+        <span matLine class="name">{{ goal.name }}</span>
+        <span matLine>
+          {{ goal.saved | currency: (currency$ | async).code:'symbol-narrow' }} /
+          {{ goal.amount | currency: (currency$ | async).code:'symbol-narrow' }}
+          ({{ goal.saved / goal.amount | percent }})
+        </span>
+        <mat-progress-bar color="accent" matLine [value]="(goal.saved / goal.amount) * 100"></mat-progress-bar>
+        <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="withdrawOrDeposit(goal.id, 'deposit')">Deposit</button>
+          <button mat-menu-item (click)="withdrawOrDeposit(goal.id, 'withdrawal')">Withdraw</button>
+          <button mat-menu-item [routerLink]="['edit', goal.id]">Edit</button>
+        </mat-menu>
+      </mat-list-item>
+    </mat-list>
   </div>
   <button mat-fab color="accent" type="button" class="add-button" [@fabShowHide] routerLink="edit">
     <mat-icon>add</mat-icon>

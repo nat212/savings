@@ -1,5 +1,29 @@
+@import '~@angular/material/theming';
+
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.contents {
+  overflow-y: auto;
+}
+
 .add-button {
   position: fixed;
   bottom: 16px;
   right: 16px;
+}
+
+.goal {
+  @include mat-elevation(2);
+  border-radius: 5px;
+  margin: 8px;
+
+  .name {
+    font-size: 18px;
+    font-weight: 500;
+  }
 }

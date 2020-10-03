@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
-import { Currency } from '../../models/currency';
+import { Currency } from '../currency/currency.model';
 
 export interface SettingsState {
   currency: Currency;

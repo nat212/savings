@@ -10,15 +10,29 @@ export class GoalService {
     this.goalStore.add(goal);
   }
 
-  public update(id: number, goal: Partial<Goal>): void {
+  public update(id: string, goal: Partial<Goal>): void {
     this.goalStore.update(id, goal);
   }
 
-  public remove(id: number): void {
+  public remove(id: string): void {
     this.goalStore.remove(id);
   }
 
-  public upsert(id: number, goal: Partial<Goal>): void {
+  public upsert(id: string, goal: Partial<Goal>): void {
     this.goalStore.upsert(id, goal);
+  }
+
+  public deposit(id: string, amount: number): void {
+    this.goalStore.update(id, (state) => ({
+      ...state,
+      saved: state.saved + amount,
+    }));
+  }
+
+  public withdraw(id: string, amount: number): void {
+    this.goalStore.update(id, (state) => ({
+      ...state,
+      saved: state.saved - amount,
+    }));
   }
 }

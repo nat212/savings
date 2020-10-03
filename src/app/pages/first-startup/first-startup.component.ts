@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import Fuse from 'fuse.js';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
-import { CurrencyService } from 'src/app/services/currency.service';
-import { Currency } from 'src/app/settings/models/currency';
-import { SettingsService } from 'src/app/settings/services/settings.service';
+import { Currency } from 'src/app/settings/entities/currency/currency.model';
+import { CurrencyQuery } from 'src/app/settings/entities/currency/currency.query';
+import { SettingsService } from 'src/app/settings/entities/settings/settings.service';
 
 @Component({
   selector: 'sv-first-startup',
@@ -19,14 +19,14 @@ export class FirstStartupComponent implements OnInit {
   public startupGroup: FormGroup;
 
   constructor(
-    private currency: CurrencyService,
+    private currency: CurrencyQuery,
     private formBuilder: FormBuilder,
     private settings: SettingsService,
     private router: Router,
   ) {}
 
   public static isCurrency(currency: Currency | string): currency is Currency {
-    return currency instanceof Currency;
+    return typeof currency === 'string' ? false : !!currency?.code;
   }
 
   public static currencyValidator(control: AbstractControl): ValidationErrors {
@@ -47,7 +47,7 @@ export class FirstStartupComponent implements OnInit {
     this.startupGroup = this.formBuilder.group({
       currency: ['', Validators.compose([Validators.required, FirstStartupComponent.currencyValidator])],
     });
-    this.currencies$ = this.currency.getCurrencies();
+    this.currencies$ = this.currency.currencies$;
     const currencyFuse$: Observable<Fuse<Currency>> = this.currencies$.pipe(
       map((currencies) => {
         const opts: Fuse.IFuseOptions<Currency> = { keys: ['code', 'name'], shouldSort: true };
@@ -68,7 +68,7 @@ export class FirstStartupComponent implements OnInit {
   }
 
   public displayFn(currency: Currency | string): string {
-    return currency instanceof Currency ? currency.display : currency;
+    return FirstStartupComponent.isCurrency(currency) ? `${currency.name} (${currency.code})` : currency;
   }
 
   public submit(): void {

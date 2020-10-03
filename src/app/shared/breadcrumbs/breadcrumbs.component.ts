@@ -12,6 +12,7 @@ export interface Crumb {
 })
 export class BreadcrumbsComponent implements OnInit {
   @Input() public crumbs: Crumb[] = [];
+  @Input() public overrideBackFunction: string;
 
   constructor() {}
 

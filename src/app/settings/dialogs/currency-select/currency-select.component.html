@@ -4,10 +4,16 @@
 <div mat-dialog-content>
   <mat-form-field appearance="fill" style="width: 100%;">
     <mat-label>Select a currency</mat-label>
-    <input matInput type="text" [formControl]="currencyForm" [matAutocomplete]="autocomplete" [placeholder]="data.currency.display" />
+    <input
+      matInput
+      type="text"
+      [formControl]="currencyForm"
+      [matAutocomplete]="autocomplete"
+      placeholder="{{ data.currency.name }} ({{ data.currency.code }})"
+    />
     <mat-autocomplete #autocomplete [displayWith]="displayFn">
       <mat-option *ngFor="let currency of filteredCurrencies$ | async" [value]="currency">
-        {{ currency.display }}
+        {{ currency.name }} ({{ currency.code }})
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

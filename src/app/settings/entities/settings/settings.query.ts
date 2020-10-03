@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { Currency } from '../../models/currency';
+import { Currency } from '../currency/currency.model';
 import { SettingsState, SettingsStore } from './settings.store';
 
 @Injectable({ providedIn: 'root' })

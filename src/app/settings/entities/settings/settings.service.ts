@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Currency } from '../../models/currency';
+import { Currency } from '../currency/currency.model';
 import { SettingsStore } from './settings.store';
 
 @Injectable({
