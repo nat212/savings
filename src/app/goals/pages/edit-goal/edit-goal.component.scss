@@ -1,17 +1,19 @@
-@import '~@angular/flex-layout/mq';
+@import "~@angular/flex-layout/mq";
 
 :host {
-  display: block;
-  padding: 16px;
-  padding-top: 72px;
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
 
-  @include layout-bp(gt-sm) {
-    padding-top: 80px;
-  }
+.contents {
+  overflow-y: auto;
+  padding: 16px;
 }
 
 .save-button {
   position: fixed;
-  bottom: 64px;
+  bottom: 16px;
   right: 16px;
 }

@@ -28,10 +28,7 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": [
-              "src/material-theme.scss",
-              "src/styles.scss"
-            ],
+            "styles": ["src/material-theme.scss", "src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -112,9 +109,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -132,13 +127,8 @@
       }
     }
   },
-<<<<<<< Updated upstream
-  "defaultProject": "savings"
-}
-=======
   "defaultProject": "savings",
   "cli": {
     "defaultCollection": "@datorama/akita"
   }
 }
->>>>>>> Stashed changes

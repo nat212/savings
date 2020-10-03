@@ -1,5 +1,5 @@
-@import '~@angular/material/theming';
-@import '~@angular/flex-layout/mq';
+@import "~@angular/material/theming";
+@import "~@angular/flex-layout/mq";
 
 :host {
   display: block;
@@ -11,10 +11,6 @@
   padding: 0 16px;
   border-radius: 0 0 16px 16px;
   @include mat-elevation(3);
-
-  @include layout-bp(gt-sm) {
-    padding: 64px 16px 0;
-  }
 }
 
 :host-context(.primary) {
