@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, ActivationStart, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { filter, map, startWith, tap } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { fabShowHide } from 'src/app/shared/animations/fab';
 import { Crumb } from 'src/app/shared/breadcrumbs/breadcrumbs.component';
 
@@ -33,8 +33,7 @@ export class HomeComponent implements OnInit {
       filter((event) => event instanceof NavigationEnd),
       map((event: NavigationEnd) => event.url),
       map((url) => this.route.children.find((c) => c.snapshot.url.join('/') === url)),
-      tap(console.log),
-      map((route: ActivatedRoute) => route.snapshot.data.crumbs),
+      map((route: ActivatedRoute) => route?.snapshot.data.crumbs),
     );
   }
 

@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Fuse from 'fuse.js';
 import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { CurrencyService } from 'src/app/services/currency.service';
-import { Currency } from '../../models/currency';
+import { Currency } from '../../entities/currency/currency.model';
+import { CurrencyQuery } from '../../entities/currency/currency.query';
 
 export interface CurrencySelectData {
   currency: Currency;
@@ -20,14 +20,14 @@ export class CurrencySelectComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CurrencySelectData,
     public dialogRef: MatDialogRef<CurrencySelectComponent>,
-    private currencies: CurrencyService,
+    private currencies: CurrencyQuery,
   ) {}
 
   public currencyForm: FormControl;
   public filteredCurrencies$: Observable<Currency[]>;
 
   private static currencyValidator(control: AbstractControl): ValidationErrors {
-    if (control.value && !(control.value instanceof Currency)) {
+    if (control.value && !control.value?.code) {
       const errors = { ...control.errors, currency: true };
       control.setErrors(errors);
       return errors;
@@ -55,7 +55,7 @@ export class CurrencySelectComponent implements OnInit {
       this.currencies.currencies$,
       currencyFuse$,
       this.currencyForm.valueChanges.pipe(
-        map((val) => (val instanceof Currency ? val.display : val)),
+        map((val) => this.displayFn(val)),
         startWith(''),
       ),
     ]).pipe(
@@ -64,6 +64,6 @@ export class CurrencySelectComponent implements OnInit {
   }
 
   public displayFn(currency: Currency | string): string {
-    return typeof currency === 'string' ? currency : currency.display;
+    return typeof currency === 'string' ? currency : `${currency.name} (${currency.code})`;
   }
 }

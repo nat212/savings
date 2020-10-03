@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SettingsService } from '../settings/services/settings.service';
+import { SettingsQuery } from '../settings/entities/settings/settings.query';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirstStartupGuard implements CanActivate, CanActivateChild {
-  constructor(private settings: SettingsService, private router: Router) {}
+  constructor(private settings: SettingsQuery, private router: Router) {}
   public canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,

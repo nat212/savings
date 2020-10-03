@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule, GridModule } from '@angular/flex-layout';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -47,4 +46,4 @@ import { SharedModule } from './shared/shared.module';
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
