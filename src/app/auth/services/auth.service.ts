@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,12 @@ export class AuthService {
       map((user) => user.uid),
     );
     this.userId$.subscribe((userId) => (this.userId = userId));
+    this.user$.subscribe(console.log);
+    this.user$.pipe(take(1)).subscribe((user) => {
+      if (!user) {
+        this.fireAuth.signInAnonymously();
+      }
+    });
   }
 
   public registerWithEmail(email: string, password: string): Promise<firebase.auth.UserCredential> {

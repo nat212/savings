@@ -2048,6 +2048,13 @@ ajv@^6.12.2:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+akita-ng-fire@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/akita-ng-fire/-/akita-ng-fire-3.1.4.tgz#166b917cbbb17b7aaee951347d02698f1a54a816"
+  integrity sha512-jglfBPqIzF6UogU38HlLPmdSdMi/i5Mt6loCye4l82a92tFKsYkYqcXnzkwvx6Yt54aLeXi44TIDbAPSTqGTGQ==
+  dependencies:
+    tslib "^2.0.0"
+
 alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
