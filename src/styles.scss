@@ -38,3 +38,11 @@ a.mat-icon-button {
     }
   }
 }
+
+button.mat-button-base {
+  &.mat-raised-button,
+  &.mat-flat-button,
+  &.mat-stroked-button {
+    border-radius: 20px;
+  }
+}
