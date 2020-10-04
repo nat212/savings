@@ -21,7 +21,6 @@ export class AuthService {
       map((user) => user.uid),
     );
     this.userId$.subscribe((userId) => (this.userId = userId));
-    this.user$.subscribe(console.log);
     this.user$.pipe(take(1)).subscribe((user) => {
       if (!user) {
         this.fireAuth.signInAnonymously();

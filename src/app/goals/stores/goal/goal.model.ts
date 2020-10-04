@@ -1,9 +1,13 @@
-import { ID } from '@datorama/akita';
-
 export interface Goal {
-  id: ID;
+  id: string;
+  amount: number;
+  name: string;
+  saved: number;
 }
 
-export function createGoal(params: Partial<Goal>) {
-  return {} as Goal;
+export function createGoal(params: Partial<Goal>): Goal {
+  return {
+    saved: 0,
+    ...params,
+  } as Goal;
 }

@@ -2,11 +2,9 @@ import { getCurrencySymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { createGoal, GoalQuery, GoalService } from '@goals/stores/goal/index';
 import { SettingsQuery } from 'src/app/settings/entities/settings/settings.query';
 import { fabShowHide } from 'src/app/shared/animations/fab';
-import { createGoal } from '../../stores/goal.model';
-import { GoalQuery } from '../../stores/goal.query';
-import { GoalService } from '../../stores/goal.service';
 
 @Component({
   selector: 'sv-edit-goal',
@@ -33,13 +31,9 @@ export class EditGoalComponent implements OnInit {
       name: ['', Validators.required],
       amount: [null, Validators.required],
     });
-    this.newGoal = !this.route.snapshot.paramMap.has('goal_id');
-    this.goalId = this.route.snapshot.paramMap.get('goal_id');
-    if (this.goalId) {
-      this.goalQuery.getGoal(this.goalId).subscribe((goal) => {
-        this.goalForm.patchValue({ ...goal });
-      });
-    }
+    console.log(this.goalQuery.getActive());
+    this.goalId = this.goalQuery.getActive()?.id;
+    this.newGoal = !this.goalQuery.getActive();
   }
 
   get currencyCode(): string {

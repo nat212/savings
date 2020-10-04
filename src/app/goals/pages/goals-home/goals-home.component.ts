@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Goal, GoalQuery, GoalService } from '@goals/stores/goal/index';
 import { Observable } from 'rxjs';
 import { Currency } from 'src/app/settings/entities/currency/currency.model';
 import { SettingsQuery } from 'src/app/settings/entities/settings/settings.query';
 import { fabShowHide } from 'src/app/shared/animations/fab';
 import { DepositWithdrawalComponent, DepositWithdrawalData } from '../../dialogs/deposit-withdrawal/deposit-withdrawal.component';
-import { Goal } from '../../stores/goal.model';
-import { GoalQuery } from '../../stores/goal.query';
-import { GoalService } from '../../stores/goal.service';
 
 @Component({
   selector: 'sv-goals-home',
