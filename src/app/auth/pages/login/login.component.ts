@@ -1,20 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from '../../stores/auth';
 
-const addErrors = (
-  control: AbstractControl,
-  error: ValidationErrors
-): ValidationErrors => {
+const addErrors = (control: AbstractControl, error: ValidationErrors): ValidationErrors => {
   const oldErrors = control.errors;
   const newErrors = { ...(oldErrors || {}), ...error };
   control.setErrors(newErrors);
@@ -37,28 +27,16 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public registerForm: FormGroup;
   public registerActive = false;
-  constructor(
-    private auth: AuthService,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private alert: AlertService
-  ) {}
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, private router: Router, private alert: AlertService) {}
 
-  private mustMatchValidator(
-    control1Name: string,
-    control2Name: string
-  ): ValidatorFn {
+  private mustMatchValidator(control1Name: string, control2Name: string): ValidatorFn {
     return (group: AbstractControl) => {
       const control1 = group.get(control1Name);
       const control2 = group.get(control2Name);
       if (!control1 || !control2) {
         return null;
       }
-      if (
-        !control1.value ||
-        !control2.value ||
-        control1.value === control2.value
-      ) {
+      if (!control1.value || !control2.value || control1.value === control2.value) {
         removeErrors(control1, 'matching');
         return removeErrors(control2, 'matching');
       } else {
@@ -75,14 +53,11 @@ export class LoginComponent implements OnInit {
     });
     this.registerForm = this.formBuilder.group(
       {
-        email: [
-          '',
-          Validators.compose([Validators.email, Validators.required]),
-        ],
+        email: ['', Validators.compose([Validators.email, Validators.required])],
         password: ['', Validators.required],
         passwordConfirm: ['', Validators.required],
       },
-      { validators: [this.mustMatchValidator('password', 'passwordConfirm')] }
+      { validators: [this.mustMatchValidator('password', 'passwordConfirm')] },
     );
 
     this.loginForm.valueChanges.subscribe((value) => {
@@ -122,6 +97,7 @@ export class LoginComponent implements OnInit {
     this.auth
       .signin('google')
       .then(() => {
+        this.alert.snackbar('Logged in');
         this.router.navigate(['/']);
       })
       .catch((err: firebase.auth.Error) => {

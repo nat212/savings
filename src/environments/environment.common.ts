@@ -2,7 +2,7 @@ export const commonEnvironment = {
   currencyApiUrl: 'https://openexchangerates.org/api/currencies.json',
   firebase: {
     apiKey: 'AIzaSyDdLa9l3IIvJytnL1HIRhjb0G3STMZxO5U',
-    authDomain: 'draper-savings.firebaseapp.com',
+    authDomain: 'auth.savings.draper.net.za',
     databaseURL: 'https://draper-savings.firebaseio.com',
     projectId: 'draper-savings',
     storageBucket: 'draper-savings.appspot.com',
