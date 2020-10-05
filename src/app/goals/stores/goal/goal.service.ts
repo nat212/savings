@@ -17,9 +17,7 @@ export class GoalService extends CollectionService<GoalState> {
   public sync(queryFn?: QueryFn): Observable<DocumentChangeAction<Goal>[]> {
     return this.auth.userId$.pipe(
       tap(() => this.store.reset()),
-      switchMap((userId) =>
-        this.syncCollection(queryFn, { params: { userId } })
-      )
+      switchMap((userId) => this.syncCollection(queryFn, { params: { userId } })),
     );
   }
 

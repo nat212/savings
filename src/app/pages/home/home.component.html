@@ -1,12 +1,19 @@
-<sv-breadcrumbs
-  *ngIf="crumbs$ | async as crumbs"
-  [crumbs]="crumbs"
-></sv-breadcrumbs>
+<sv-breadcrumbs *ngIf="crumbs$ | async as crumbs" [crumbs]="crumbs"></sv-breadcrumbs>
 <div class="content" fxLayout="column" fxLayoutAlign="start stretch">
   <mat-toolbar class="toolbar mat-elevation-z6" color="primary">
     <mat-toolbar-row>
-      <span>Savings</span>
+      <span>SimpleSave</span>
       <span fxFlex="1 1 auto"></span>
+      <button
+        mat-icon-button
+        type="button"
+        (click)="update.activateUpdate()"
+        matBadge="1"
+        matBadgeColor="accent"
+        *ngIf="update.updatesAvailable$ | async"
+      >
+        <mat-icon>system_update</mat-icon>
+      </button>
       <button mat-icon-button type="button" routerLink="settings">
         <mat-icon>settings</mat-icon>
       </button>

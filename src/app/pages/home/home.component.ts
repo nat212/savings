@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { AlertService } from '@services/alert.service';
+import { UpdateService } from '@services/update.service';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { filter, map, startWith, take } from 'rxjs/operators';
 import { fabShowHide } from 'src/app/shared/animations/fab';
 import { Crumb } from 'src/app/shared/breadcrumbs/breadcrumbs.component';
 
@@ -15,7 +17,7 @@ export class HomeComponent implements OnInit {
   private selectedIndex$: Subject<number>;
   public crumbs$: Observable<Crumb[]>;
   public showFAB$: Observable<boolean>;
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute, public update: UpdateService, private alert: AlertService) {}
 
   public ngOnInit(): void {
     this.selectedIndex$ = new Subject();
@@ -35,13 +37,14 @@ export class HomeComponent implements OnInit {
       map((url) => this.route.children.find((c) => c.snapshot.url.join('/') === url)),
       map((route: ActivatedRoute) => route?.snapshot.data.crumbs),
     );
+    this.update.updatesAvailable$.pipe(take(1)).subscribe(() => {
+      this.alert.snackbar('SimpleSave update available', 'Activate').subscribe(() => {
+        this.update.activateUpdate();
+      });
+    });
   }
 
   public selectedIndexChange(index: number): void {
     this.selectedIndex$.next(index);
-  }
-
-  public addGoal(): void {
-    this.router.navigate([{ outlets: { home: 'goals/edit' } }], { relativeTo: this.route });
   }
 }
