@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { AuthQuery, AuthService } from 'src/app/auth/stores/auth';
+import { Profile } from 'src/app/auth/stores/auth/auth.store';
 import { CurrencySelectComponent } from '../../dialogs/currency-select/currency-select.component';
 import { Currency } from '../../entities/currency/currency.model';
 
@@ -13,12 +14,14 @@ import { Currency } from '../../entities/currency/currency.model';
 })
 export class SettingsHomeComponent implements OnInit {
   public currency$: Observable<Currency>;
+  public profile$: Observable<Profile>;
   private currency: Currency;
 
   constructor(private user: AuthService, private dialog: MatDialog, private query: AuthQuery) {}
 
   public ngOnInit(): void {
     this.currency$ = this.query.currency$.pipe(tap((currency) => (this.currency = currency)));
+    this.profile$ = this.query.profile$;
   }
 
   public selectCurrency(): void {

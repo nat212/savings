@@ -12,10 +12,10 @@ export class AuthService extends FireAuthService<AuthState> {
   }
 
   public createProfile(user: User): AuthState['profile'] {
-    return { currencyCode: null, anonymous: user.isAnonymous };
+    return { currencyCode: null, anonymous: user.isAnonymous, email: user.email, photoURL: user.photoURL };
   }
 
-  public setCurrency(currency: Currency): void {
-    this.update({ currencyCode: currency.code });
+  public setCurrency(currency: Currency): Promise<void | firebase.firestore.Transaction> {
+    return this.update({ currencyCode: currency.code });
   }
 }

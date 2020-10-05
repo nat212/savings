@@ -69,7 +69,8 @@ export class FirstStartupComponent implements OnInit {
 
   public submit(): void {
     const { currency } = this.startupGroup.value;
-    this.user.setCurrency(currency);
-    this.router.navigate(['/']);
+    this.user.setCurrency(currency).then(() => {
+      this.router.navigate(['/home']);
+    });
   }
 }

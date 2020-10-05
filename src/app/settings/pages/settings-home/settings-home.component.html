@@ -1,6 +1,28 @@
 <sv-breadcrumbs [crumbs]="[{ label: 'Settings' }]" [overrideBackFunction]="['../..', 'goals']" class="accent"></sv-breadcrumbs>
 <div class="contents" fxFlex="1 1 auto" gdRows="min-content!" gdColumns="auto" gdColumns.gt-sm="1fr 2fr 1fr">
   <mat-action-list gdColumn.gt-sm="2">
+    <ng-container *ngIf="profile$ | async as profile">
+      <h3 matSubheader>Account &amp; Backup</h3>
+      <ng-container *ngIf="profile.anonymous; else loggedIn">
+        <button mat-list-item routerLink="/auth/login">
+          <mat-icon matListIcon>login</mat-icon>
+          <span matLine>
+            Sign in to sync across devices
+          </span>
+        </button>
+      </ng-container>
+      <ng-template #loggedIn>
+        <mat-list-item>
+          <img matListAvatar [src]="profile.photoURL" alt="Profile Photo" />
+          <span matLine>
+            Logged in as
+            <b>
+              {{ profile.email }}
+            </b>
+          </span>
+        </mat-list-item>
+      </ng-template>
+    </ng-container>
     <h3 matSubheader>General Settings</h3>
     <button mat-list-item (click)="selectCurrency()" *ngIf="currency$ | async as currency">
       <mat-icon mat-list-icon>
