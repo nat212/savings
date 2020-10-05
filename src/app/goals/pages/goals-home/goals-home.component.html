@@ -1,8 +1,8 @@
 <sv-breadcrumbs class="accent" [crumbs]="[{ label: 'Goals' }]"></sv-breadcrumbs>
 <div class="contents">
-  <div class="goals" fxFlex="1 1 auto" gdRows="min-content!" gdColumns="auto" gdColumns.gt-sm="1fr 2fr 1fr">
-    <mat-list gdColumn.gt-sm="2">
-      <mat-list-item *ngFor="let goal of goals$ | async" class="goal">
+  <div class="goals" fxFlex="1 1 auto" gdRows="min-content!" gdColumns.lt-md="auto" gdColumns.gt-sm="1fr 2fr 1fr">
+    <mat-list gdColumn.lt-md="1" gdColumn.gt-sm="2" *ngIf="goals$ | async as goals" class="goals-list">
+      <mat-list-item *ngFor="let goal of goals" class="goal">
         <mat-icon matListIcon>flag</mat-icon>
         <span matLine class="name">{{ goal.name }}</span>
         <span matLine>
@@ -18,8 +18,16 @@
           <button mat-menu-item (click)="withdrawOrDeposit(goal.id, 'deposit')">Deposit</button>
           <button mat-menu-item (click)="withdrawOrDeposit(goal.id, 'withdrawal')">Withdraw</button>
           <button mat-menu-item [routerLink]="['edit', goal.id]">Edit</button>
+          <button mat-menu-item (click)="deleteGoal(goal)">Delete</button>
         </mat-menu>
       </mat-list-item>
+      <div fxFill fxLayout="column" fxLayoutAlign="start center" *ngIf="!goals.length">
+        <h2>You have no goals</h2>
+        <button mat-raised-button color="accent" type="button" routerLink="edit">
+          <mat-icon>add</mat-icon>
+          Create a goal
+        </button>
+      </div>
     </mat-list>
   </div>
   <button mat-fab color="accent" type="button" class="add-button" [@fabShowHide] routerLink="edit">

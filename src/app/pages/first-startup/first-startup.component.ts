@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import Fuse from 'fuse.js';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/stores/auth';
 import { Currency } from 'src/app/settings/entities/currency/currency.model';
 import { CurrencyQuery } from 'src/app/settings/entities/currency/currency.query';
-import { SettingsService } from 'src/app/settings/entities/settings/settings.service';
 
 @Component({
   selector: 'sv-first-startup',
@@ -18,12 +18,7 @@ export class FirstStartupComponent implements OnInit {
   public filteredCurrencies$: Observable<Currency[]>;
   public startupGroup: FormGroup;
 
-  constructor(
-    private currency: CurrencyQuery,
-    private formBuilder: FormBuilder,
-    private settings: SettingsService,
-    private router: Router,
-  ) {}
+  constructor(private currency: CurrencyQuery, private formBuilder: FormBuilder, private user: AuthService, private router: Router) {}
 
   public static isCurrency(currency: Currency | string): currency is Currency {
     return typeof currency === 'string' ? false : !!currency?.code;
@@ -73,7 +68,7 @@ export class FirstStartupComponent implements OnInit {
 
   public submit(): void {
     const { currency } = this.startupGroup.value;
-    this.settings.setCurrency(currency);
+    this.user.setCurrency(currency);
     this.router.navigate(['/']);
   }
 }

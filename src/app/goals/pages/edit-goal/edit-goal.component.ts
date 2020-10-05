@@ -1,9 +1,10 @@
-import { getCurrencySymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { createGoal, GoalQuery, GoalService } from '@goals/stores/goal/index';
-import { SettingsQuery } from 'src/app/settings/entities/settings/settings.query';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthQuery } from 'src/app/auth/stores/auth';
 import { fabShowHide } from 'src/app/shared/animations/fab';
 
 @Component({
@@ -20,7 +21,7 @@ export class EditGoalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private settingsQuery: SettingsQuery,
+    private user: AuthQuery,
     private goalService: GoalService,
     private goalQuery: GoalQuery,
     private router: Router,
@@ -36,12 +37,8 @@ export class EditGoalComponent implements OnInit {
     this.newGoal = !this.goalQuery.getActive();
   }
 
-  get currencyCode(): string {
-    return this.settingsQuery.getCurrency().code;
-  }
-
-  get currencySymbol(): string {
-    return getCurrencySymbol(this.currencyCode, 'narrow');
+  get currencyCode$(): Observable<string> {
+    return this.user.currency$.pipe(map(({ code }) => code));
   }
 
   public save(): void {

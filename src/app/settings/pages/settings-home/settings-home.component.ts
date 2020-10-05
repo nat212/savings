@@ -1,39 +1,31 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
+import { AuthQuery, AuthService } from 'src/app/auth/stores/auth';
 import { CurrencySelectComponent } from '../../dialogs/currency-select/currency-select.component';
 import { Currency } from '../../entities/currency/currency.model';
-import { SettingsQuery } from '../../entities/settings/settings.query';
-import { SettingsService } from '../../entities/settings/settings.service';
-import { SettingsState } from '../../entities/settings/settings.store';
 
 @Component({
   selector: 'sv-settings-home',
   templateUrl: './settings-home.component.html',
   styleUrls: ['./settings-home.component.scss'],
 })
-export class SettingsHomeComponent implements OnInit, OnDestroy {
-  public settings$: Observable<SettingsState>;
-  private unsubscribe$ = new Subject<void>();
+export class SettingsHomeComponent implements OnInit {
+  public currency$: Observable<Currency>;
   private currency: Currency;
 
-  constructor(private settings: SettingsService, private dialog: MatDialog, private settingsQuery: SettingsQuery) {}
+  constructor(private user: AuthService, private dialog: MatDialog, private query: AuthQuery) {}
 
   public ngOnInit(): void {
-    this.settings$ = this.settingsQuery.settings$;
-    this.settings$.pipe(takeUntil(this.unsubscribe$)).subscribe(({ currency }) => (this.currency = currency));
-  }
-
-  public ngOnDestroy(): void {
-    this.unsubscribe$.next();
+    this.currency$ = this.query.currency$.pipe(tap((currency) => (this.currency = currency)));
   }
 
   public selectCurrency(): void {
     const ref = this.dialog.open(CurrencySelectComponent, { data: { currency: this.currency } });
     ref.afterClosed().subscribe((result: Currency) => {
       if (result) {
-        this.settings.setCurrency(result);
+        this.user.setCurrency(result);
       }
     });
   }

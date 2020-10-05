@@ -17,10 +17,17 @@
   right: 16px;
 }
 
+.goals-list {
+  padding: 8px;
+}
+
 .goal {
   @include mat-elevation(2);
   border-radius: 5px;
-  margin: 8px;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
 
   .name {
     font-size: 18px;

@@ -1,30 +1,38 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Currency } from '@settings/entities/currency/currency.model';
 import { Observable } from 'rxjs';
-import { SettingsQuery } from '../settings/entities/settings/settings.query';
+import { map, take } from 'rxjs/operators';
+import { AuthQuery } from '../auth/stores/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirstStartupGuard implements CanActivate, CanActivateChild {
-  constructor(private settings: SettingsQuery, private router: Router) {}
+  private getUrlTreeFromPath(path: string): UrlTree {
+    return this.router.parseUrl(path);
+  }
+  private checkValidNavigation(state: RouterStateSnapshot, currency: Currency): boolean | UrlTree {
+    if (state.url === '/first-startup') {
+      return currency ? this.getUrlTreeFromPath('/') : true;
+    } else {
+      return currency ? true : this.getUrlTreeFromPath('/first-startup');
+    }
+  }
+  constructor(private auth: AuthQuery, private router: Router) {}
   public canActivate(
-    route: ActivatedRouteSnapshot,
+    next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.settings.getCurrency() && !state.url.includes('first-startup')) {
-      this.router.navigate(['/first-startup']);
-      return false;
-    } else if (this.settings.getCurrency() && state.url.includes('first-startup')) {
-      this.router.navigate(['/']);
-      return false;
-    }
-    return true;
+    return this.auth.currency$.pipe(
+      take(1),
+      map((currency) => this.checkValidNavigation(state, currency)),
+    );
   }
   public canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
+    next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.canActivate(childRoute, state);
+    return this.canActivate(next, state);
   }
 }

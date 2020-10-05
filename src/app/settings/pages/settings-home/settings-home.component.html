@@ -1,13 +1,13 @@
 <sv-breadcrumbs [crumbs]="[{ label: 'Settings' }]" [overrideBackFunction]="['../..', 'goals']" class="accent"></sv-breadcrumbs>
 <div class="contents" fxFlex="1 1 auto" gdRows="min-content!" gdColumns="auto" gdColumns.gt-sm="1fr 2fr 1fr">
-  <mat-action-list *ngIf="settings$ | async as settings" gdColumn.gt-sm="2">
+  <mat-action-list gdColumn.gt-sm="2">
     <h3 matSubheader>General Settings</h3>
-    <button mat-list-item (click)="selectCurrency()">
+    <button mat-list-item (click)="selectCurrency()" *ngIf="currency$ | async as currency">
       <mat-icon mat-list-icon>
         euro
       </mat-icon>
       <div mat-line>Currency</div>
-      <div mat-line>{{ settings.currency.name }} ({{ settings.currency.code }})</div>
+      <div mat-line>{{ currency.name }} ({{ currency.code }})</div>
     </button>
   </mat-action-list>
 </div>

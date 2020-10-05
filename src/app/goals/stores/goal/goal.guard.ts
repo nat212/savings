@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { DocumentChangeAction } from '@angular/fire/firestore';
-import { ActivatedRouteSnapshot } from '@angular/router';
 import { CollectionGuard } from 'akita-ng-fire';
 import { Observable } from 'rxjs';
 import { Goal } from './goal.model';
@@ -15,7 +14,7 @@ export class GoalGuard extends CollectionGuard<GoalState> {
     super(service);
   }
 
-  public sync(next: ActivatedRouteSnapshot): Observable<DocumentChangeAction<Goal>[]> {
+  public sync(): Observable<DocumentChangeAction<Goal>[]> {
     return (this.service as GoalService).sync();
   }
 }
