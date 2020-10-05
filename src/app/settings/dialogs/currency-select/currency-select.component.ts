@@ -60,6 +60,7 @@ export class CurrencySelectComponent implements OnInit {
       ),
     ]).pipe(
       map(([currencies, currencyFuse, filterTerm]) => (filterTerm ? currencyFuse.search(filterTerm).map((i) => i.item) : currencies)),
+      map((currencies) => currencies.slice(0, 10)),
     );
   }
 

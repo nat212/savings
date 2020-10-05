@@ -1,11 +1,5 @@
 <div class="crumbs" fxLayout="row" fxLayoutAlign="start center">
-  <button
-    mat-icon-button
-    [routerLink]="overrideBackFunction || ['..']"
-    type="button"
-    class="fit-icon"
-    *ngIf="crumbs.length > 1 || overrideBackFunction"
-  >
+  <button mat-icon-button [routerLink]="backPath" type="button" class="fit-icon" *ngIf="crumbs.length > 1 || overrideBackFunction">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <ng-container *ngFor="let crumb of crumbs; let last = last">
