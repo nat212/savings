@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GoalQuery, GoalService } from '@goals/stores/goal';
+import { FunctionsService } from '@services/functions.service';
 import { Currency } from '@settings/entities/currency/currency.model';
 import { CollectionConfig, FireAuthService } from 'akita-ng-fire';
 import { User } from 'firebase';
@@ -10,7 +10,7 @@ import { AuthState, AuthStore } from './auth.store';
 @CollectionConfig({ path: 'users' })
 export class AuthService extends FireAuthService<AuthState> {
   public oldUser: User;
-  constructor(store: AuthStore, private goals: GoalQuery, private goalService: GoalService) {
+  constructor(store: AuthStore, private functions: FunctionsService) {
     super(store);
   }
 
@@ -21,17 +21,9 @@ export class AuthService extends FireAuthService<AuthState> {
     return this.signin(provider);
   }
 
-  public async transferGoals(cred: firebase.auth.UserCredential): Promise<void> {
-    const goals = this.goals.getAll();
-    const collection$ = this.goalService.syncCollection({ params: { id: cred.user.uid } });
-    return await collection$.toPromise().then(() => {
-      this.goalService.setGoals(goals);
-    });
-  }
-
-  public async onSignup(cred: firebase.auth.UserCredential) {
+  public async onSignup(cred: firebase.auth.UserCredential): Promise<void> {
     if (this.oldUser?.isAnonymous) {
-      await this.transferGoals(cred);
+      await this.functions.transferGoals(this.oldUser.uid).toPromise();
     }
   }
 
