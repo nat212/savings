@@ -32,4 +32,8 @@ export class SettingsHomeComponent implements OnInit {
       }
     });
   }
+
+  public signOut(): void {
+    this.user.signOut();
+  }
 }

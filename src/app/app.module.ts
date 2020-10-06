@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
+import { AngularFireFunctionsModule, ORIGIN } from '@angular/fire/functions';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -37,6 +38,7 @@ import { SharedModule } from './shared/shared.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
+    AngularFireFunctionsModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
@@ -67,6 +69,10 @@ import { SharedModule } from './shared/shared.module';
             host: 'localhost:8082',
             ssl: false,
           },
+    },
+    {
+      provide: ORIGIN,
+      useValue: environment.production ? undefined : 'localhost:5001',
     },
   ],
   bootstrap: [AppComponent],

@@ -12,7 +12,7 @@
         </button>
       </ng-container>
       <ng-template #loggedIn>
-        <mat-list-item>
+        <mat-list-item (click)="signOut()">
           <img matListAvatar [src]="profile.photoURL" alt="Profile Photo" />
           <span matLine>
             Logged in as

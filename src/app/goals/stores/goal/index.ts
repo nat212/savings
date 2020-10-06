@@ -1,5 +1,5 @@
-export * from './goal.model';
-export * from './goal.query';
-export * from './goal.service';
+export { Goal, createGoal } from './goal.model';
+export { GoalQuery } from './goal.query';
+export { GoalService } from './goal.service';
 export { GoalState, GoalStore } from './goal.store';
-export * from './goal.guard';
+export { GoalGuard } from './goal.guard';

@@ -13,9 +13,9 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@goals/*": ["src/app/goals/*.ts"],
-      "@services/*": ["src/app/services/*.ts"],
-      "@settings/*": ["src/app/settings/*.ts"]
+      "@goals/*": ["src/app/goals/*"],
+      "@services/*": ["src/app/services/*"],
+      "@settings/*": ["src/app/settings/*"]
     }
   }
 }

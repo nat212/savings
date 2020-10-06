@@ -95,9 +95,8 @@ export class LoginComponent implements OnInit {
 
   public signInWithGoogle(): void {
     this.auth
-      .signin('google')
+      .loginWithGoogle()
       .then(() => {
-        this.alert.snackbar('Logged in');
         this.router.navigate(['/']);
       })
       .catch((err: firebase.auth.Error) => {

@@ -14,6 +14,11 @@ export class GoalService extends CollectionService<GoalState> {
     super(store);
   }
 
+  public setGoals(goals: Goal[]): void {
+    this.store.reset();
+    this.store.set(goals);
+  }
+
   public sync(queryFn?: QueryFn): Observable<DocumentChangeAction<Goal>[]> {
     return this.auth.userId$.pipe(
       tap(() => this.store.reset()),
